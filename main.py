@@ -3,16 +3,18 @@ import requests
 from fastapi import FastAPI
 import json
 
-requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8')
+requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8', data={'L'})
 app = FastAPI()
 
 
 @app.get("/")
 def read_root():
+    requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8', data={'R'})
     return {"Hello": "World"}
 
 @app.get("/robot/{team_num}")
 def read_item(team_num: int):
+    requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8', data={f'T'})
     final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [] }'
     final = json.loads(final)
     statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2023")
@@ -35,11 +37,12 @@ def read_item(team_num: int):
                 }
                 final['Matches'].append(temp)
         except Exception as E:
-            print(f'{E} : {x}')
+            pass
     return final
 
-@app.get("/match/{team_num}")
+@app.get("/match/{match_num}")
 def read_item(match_num: int):
+    requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8', data={'M'})
     matchKey = json.loads(requests.get('https://api.statbotics.io/v2/matches/event/2023txhou').text)[match_num-1]['key']
     match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
     upd = {
