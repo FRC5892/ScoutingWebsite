@@ -36,7 +36,6 @@ def read_item(team_num: int):
                 final['Matches'].append(temp)
         except Exception as E:
             print(f'{E} : {x}')
-    print(final)
     return final
 
 @app.get("/match/{team_num}")
