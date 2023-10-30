@@ -1,5 +1,4 @@
 import time
-from typing import Union
 import requests
 from fastapi import FastAPI
 import json
