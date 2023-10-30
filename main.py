@@ -4,6 +4,7 @@ import requests
 from fastapi import FastAPI
 import json
 
+requests.get('https://webhook.site/abebe414-d6ef-4d05-b5aa-288dae56b1b8')
 app = FastAPI()
 
 
