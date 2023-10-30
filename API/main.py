@@ -38,3 +38,21 @@ def read_item(team_num: int):
             print(f'{E} : {x}')
     print(final)
     return final
+
+@app.get("/match/{team_num}")
+def read_item(match_num: int):
+    matchKey = json.loads(requests.get('https://api.statbotics.io/v2/matches/event/2023txhou').text)[match_num-1]['key']
+    match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
+    upd = {
+        'red1': match['red_1'],
+        'red2': match['red_2'],
+        'red3': match['red_3'],
+        "redEPA": match["red_epa_sum"],
+        'blue1': match['blue_1'],
+        'blue2': match['blue_2'],
+        'blue3': match['blue_3'],
+        "blueEPA": match["blue_epa_sum"],
+        "EPAwinner": match['epa_winner'],
+        "EPwinprob": match["epa_win_prob"]
+    }
+    return upd
