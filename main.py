@@ -18,12 +18,12 @@ app.add_middleware(
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/robot/{team_num}")
-def read_item(team_num: int):
+@app.get("/robot/{event}/{team_num}")
+def read_item(event: str, team_num: int):
     final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [] }'
     final = json.loads(final)
-    statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2023")
-    statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/2023txhou")
+    statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2024")
+    statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/2024{event}")
     headers = {
         'Content-Type': 'application/json'
     }
@@ -45,9 +45,9 @@ def read_item(team_num: int):
             pass
     return final
 
-@app.get("/match/{match_num}")
-def read_item(match_num: int):
-    matchKey = json.loads(requests.get('https://api.statbotics.io/v2/matches/event/2023txhou').text)[match_num-1]['key']
+@app.get("/match/{event}/{match_num}")
+def read_item(event: str, match_num: int):
+    matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/2024{event}').text)[match_num-1]['key']
     match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
     upd = {
         'red1': match['red_1'],
