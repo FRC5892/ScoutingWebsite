@@ -23,7 +23,7 @@ def read_item(event: str, team_num: int):
     final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [] }'
     final = json.loads(final)
     statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2024")
-    statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/2024{event}")
+    statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/{event}")
     headers = {
         'Content-Type': 'application/json'
     }
@@ -47,7 +47,7 @@ def read_item(event: str, team_num: int):
 
 @app.get("/match/{event}/{match_num}")
 def read_item(event: str, match_num: int):
-    matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/2024{event}').text)[match_num-1]['key']
+    matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/{event}').text)[match_num-1]['key']
     match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
     upd = {
         'red1': match['red_1'],
