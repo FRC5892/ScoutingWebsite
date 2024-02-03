@@ -1,0 +1,94 @@
+:root {
+    --lightGray:  hsl(0, 0%, 90%);
+    --mediumGray:  hsl(0, 0%, 80%);
+    --gray:  hsl(0, 0%, 50%);
+    --teamRedColor: hsl(0, 100%, 90%);
+    --teamBlueColor: hsl(239, 100%, 90%);
+    --teamRedColorDark: hsl(0, 100%, 20%);
+    --teamBlueColorDark: hsl(239, 100%, 19%);
+    --energyHerosColor: hsl(24, 97%, 50%);
+}
+
+body {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p, body {
+    margin: 0;
+    font-family: Urbanist;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 30pt;
+}
+
+h2 {
+    font-size: 24pt;
+}
+
+h3 {
+    font-size: 18pt;
+}
+
+h4 {
+    font-size: 16pt;
+}
+
+h5 {
+    font-size: 14pt;
+}
+
+h6 {
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+p {
+    font-size: 11pt;
+    font-weight: 400;
+}
+
+header {
+    max-width: 1200px;
+    margin: 8px auto;
+}
+
+header > * {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main > * {
+    margin: 0 8px;
+}
+
+.headerPush {
+    margin-left: auto
+}
+
+.roundedBox, header > * {
+    background-color: var(--lightGray);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.pageTitle {
+    margin-bottom: 8px;
+}
+
+.teamRedText {
+    color: var(--teamRedColorDark)
+}
+
+.teamBlueText {
+    color: var(--teamBlueColorDark)
+}

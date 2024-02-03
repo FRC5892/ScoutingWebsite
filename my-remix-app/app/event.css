@@ -1,0 +1,19 @@
+.matchSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.matchContainer {
+    display: flex;
+    align-items: center;
+}
+
+.matchSummary {
+    display: flex;
+    margin-left: auto;
+    gap: 8px;
+    align-items: center;
+}
+

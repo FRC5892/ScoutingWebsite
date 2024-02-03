@@ -1,0 +1,89 @@
+.mainMatchResultsSection {
+    display: flex;
+    gap: 8px;
+}
+
+.mainMatchResultsSection > * {
+    flex: 1;
+}
+
+.redAlliance {
+    background-color: var(--teamRedColor);
+}
+
+.blueAlliance {
+    background-color: var(--teamBlueColor);
+}
+
+.allianceScore {
+    display: flex;
+    justify-content: center;
+}
+
+.allianceMembers {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.divider {
+    background-color: var(--gray);
+}
+
+.teamContainer::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: black;
+}
+   
+.teamContainer:last-child::after {
+    display: none;
+}
+
+.teamPoints {
+    display: flex;
+    justify-content: center;
+}
+
+.teamNameContainer {
+    width: calc(100%);
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+}
+
+.teamName, .pointsLabel {
+    font-weight: 400;
+    font-size: 12pt;
+}
+
+.pointsBreakdown > * {
+    display: flex;
+    align-items: center;
+}
+
+.pointValue {
+    margin-left: auto;
+}
+
+.pointValueSubtext {
+    font-weight: 400;
+    font-size: 10pt;
+}
+
+.sectionTitle {
+    text-transform: uppercase;
+    font-size: 8pt;
+    margin-top: 6px;
+}
+
+.sectionLine {
+    height: 1px;
+    background-color: var(--gray);
+}
