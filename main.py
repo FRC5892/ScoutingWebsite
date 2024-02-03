@@ -1,3 +1,4 @@
+import random
 import time
 import requests
 from fastapi import FastAPI
@@ -20,10 +21,11 @@ def read_root():
 
 @app.get("/robot/{event}/{team_num}")
 def read_item(event: str, team_num: int):
-    final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [] }'
+    final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [], "statBoticsMatches": {} }'
     final = json.loads(final)
     statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2024")
     statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/{event}")
+    final['statBoticsMatches'] = requests.get(f"https://api.statbotics.io/v2/matches/team/{team_num}/event/{event}")
     headers = {
         'Content-Type': 'application/json'
     }
@@ -36,6 +38,7 @@ def read_item(event: str, team_num: int):
         try:
             if int(x[0]) == int(team_num):
                 temp = {
+                    "Match": random.randint(0,56),
                     "Notes": x[20],
                     "Charge Station": x[21],
                     "Score": x[24]
