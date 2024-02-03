@@ -1,5 +1,6 @@
 import { searchFunction } from "app/search"
 import { Scripts } from "@remix-run/react";
+import { fetchData } from "app/fetchMatch"
 
 export default function Match() {
     return (
