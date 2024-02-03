@@ -24,7 +24,7 @@ export default function Match() {
                 </div>
             </header>
             <main>
-                <h3 className="pageTitle">Match 1</h3>
+                <h3 className="pageTitle" id="pageTitle">Match 1</h3>
                 <section className="mainMatchResultsSection">
                     <div className="roundedBox redAlliance">
                         <div className="allianceScore">
@@ -32,7 +32,7 @@ export default function Match() {
                         </div>
                         <div className="allianceMembers">
                             <div className="teamContainer">
-                                <div className="teamNameContainer">
+                                <div className="teamNameContainer" id="blueOneName">
                                     <h5>5892 <span className="teamName">Energy HEROs</span></h5>
                                 </div>
                                 <div className="teamPoints">
