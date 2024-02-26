@@ -1,0 +1,1 @@
+document.getElementById("searchButton").onclick = alert;
