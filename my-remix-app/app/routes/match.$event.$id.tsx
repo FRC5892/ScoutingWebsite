@@ -1,11 +1,11 @@
-import { searchFunction } from "app/search"
 import { Scripts } from "@remix-run/react";
-import { fetchData } from "app/fetchMatch"
+import { fetchData } from "app/searchMatch"
+import { searchFunction } from "app/search"
 
 export default function Match() {
     return (
         <body>
-            <Scripts />
+            <Scripts/>
             <header>
                 <div>
                     <h3>5892 Scouting Data</h3>
@@ -28,252 +28,26 @@ export default function Match() {
                 <section className="mainMatchResultsSection">
                     <div className="roundedBox redAlliance">
                         <div className="allianceScore">
-                            <h1 id="redAllianceScore">172</h1>
+                            <h1 id="redAllianceScore"></h1>
                         </div>
-                        <div className="allianceMembers">
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="red1Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="red1Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="red1PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="red1PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="red1PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="red1PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="divider"></div>
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="red2Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="red2Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="red2PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="red2PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="red2PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="red2PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="divider"></div>
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="red3Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="red3Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="red3PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="red3PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="red3PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="red3PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="allianceMembers" id="redAllianceContainer">
+
                         </div>
                     </div>
                     <div className="roundedBox blueAlliance">
                         <div className="allianceScore">
-                            <h1>98</h1>
+                            <h1 id="blueAllianceScore"></h1>
                         </div>
-                        <div className="allianceMembers">
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="blue1Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="blue1Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="blue1PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="blue1PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="blue1PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="blue1PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="divider"></div>
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="blue2Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="blue2Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="blue2PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="blue2PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="blue2PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="blue2PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="divider"></div>
-                            <div className="teamContainer">
-                                <div className="teamNameContainer" id="blue3Name">
-                                    <h5>5892 <span className="teamName">Energy HEROs</span></h5>
-                                </div>
-                                <div className="teamPoints" id="blue3Points">
-                                    <h2>108<span className="pointsLabel"> points</span></h2>
-                                </div>
-                                <div className="pointsBreakdown">
-                                    <p className="sectionTitle">Notes</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Speaker</h6>
-                                        <div id="blue3PointsSpeaker">
-                                            <h5 className="pointValue">12 | 50 <span className="pointValueSubtext">amp</span></h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Amp</h6>
-                                        <div id="blue3PointsAmp">
-                                            <h5 className="pointValue">10</h5>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h6>Trap</h6>
-                                        <div id="blue3PointsTrap">
-                                            <h5 className="pointValue">5</h5>
-                                        </div>
-                                    </div>
-                                    <p className="sectionTitle">Stage</p>
-                                    <div className="sectionLine"></div>
-                                    <div>
-                                        <h6>Onstage</h6>
-                                        <div id="blue3PointsStage">
-                                            <h5 className="pointValue">3</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="allianceMembers" id="blueAllianceContainer">
+
                         </div>
                     </div>
                 </section>
             </main>
+            <script
+                async
+                src={`https://unpainful-programme.000webhostapp.com/searchMatch.js`}
+            />
         </body>
     );
 }
