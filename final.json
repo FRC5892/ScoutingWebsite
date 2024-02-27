@@ -1,0 +1,11 @@
+{
+	"number": 0,
+	"alliances": {
+		"red": {
+			"teams": []
+		},
+		"blue": {
+			"teams": []
+		}
+	}
+}

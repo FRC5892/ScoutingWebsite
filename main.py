@@ -48,20 +48,73 @@ def read_item(event: str, team_num: int):
             pass
     return final
 
+def yOrN(thing):
+    if thing == "yes":
+        return True
+    return False
+
 @app.get("/match/{event}/{match_num}")
 def read_item(event: str, match_num: int):
     matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/{event}').text)[match_num-1]['key']
     match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
-    upd = {
-        'red1': match['red_1'],
-        'red2': match['red_2'],
-        'red3': match['red_3'],
-        "redEPA": match["red_epa_sum"],
-        'blue1': match['blue_1'],
-        'blue2': match['blue_2'],
-        'blue3': match['blue_3'],
-        "blueEPA": match["blue_epa_sum"],
-        "EPAwinner": match['epa_winner'],
-        "EPwinprob": match["epa_win_prob"]
+    headers = {
+        'Content-Type': 'application/json'
     }
-    return upd
+    gsheet = requests.get(
+        'https://script.google.com/macros/s/AKfycbxJJ3WN8W1hT0r3HELKaNagYv8l8YrhKAaiP3PxEP7v_VIGJcFlQtI2xl1EfowhrJdB/exec',
+        allow_redirects=True, headers=headers).content.decode('utf-8')
+    gjson = json.loads(gsheet)
+    jzon = json.loads(open('final.json', 'r').read())
+    redTeams = [match['red_1'], match['red_2'], match['red_3']]
+    blueTeams = [match['blue_1'], match['blue_2'], match['blue_3']]
+    for team in redTeams:
+        red1 = 1
+        for x in range(len(gjson)):
+            if gjson[x][0] == team and gjson[x][1] == match_num:
+                red1 = x
+                break
+        jzon['number'] = match_num
+        print(gjson[red1])
+        print(red1)
+        tempzon = {
+            "number": team,
+            "EPA": match['red_epa_sum'],
+            "leftStartingZone": gjson[red1][3],
+            "auton_ampNotes": gjson[red1][4],
+            "auton_speakerNotes": gjson[red1][5],
+            "teleop_ampNotes": gjson[red1][7],
+            "teleop_speakerNotes": gjson[red1][9],
+            "teleop_ampedSpeakerNotes": gjson[red1][8],
+            "park": yOrN(gjson[red1][10]),
+            "onstage": yOrN(gjson[red1][11]),
+            "spotlit": yOrN(gjson[red1][13]),
+            "harmony": yOrN(gjson[red1][14]),
+            "trap": gjson[red1][12],
+        }
+        jzon['alliances']['red']['teams'].append(tempzon)
+    for team in blueTeams:
+        red1 = 1
+        for d in range(len(gjson)):
+            if gjson[d][0] == team and gjson[d][1] == match_num:
+                red1 = d
+                break
+        jzon['number'] = match_num
+        print(gjson[red1])
+        print(red1)
+        tempzon = {
+            "number": team,
+            "EPA": match['blue_epa_sum'],
+            "leftStartingZone": gjson[red1][3],
+            "auton_ampNotes": gjson[red1][4],
+            "auton_speakerNotes": gjson[red1][5],
+            "teleop_ampNotes": gjson[red1][7],
+            "teleop_speakerNotes": gjson[red1][9],
+            "teleop_ampedSpeakerNotes": gjson[red1][8],
+            "park": yOrN(gjson[red1][10]),
+            "onstage": yOrN(gjson[red1][11]),
+            "spotlit": yOrN(gjson[red1][13]),
+            "harmony": yOrN(gjson[red1][14]),
+            "trap": gjson[red1][12],
+        }
+        jzon['alliances']['blue']['teams'].append(tempzon)
+    return jzon
