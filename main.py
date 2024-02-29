@@ -136,7 +136,7 @@ def read_item(event: str, match_num: int):
             "onstage": yOrN(gjson[red1][11]),
             "spotlit": yOrN(gjson[red1][13]),
             "harmony": yOrN(gjson[red1][14]),
-            "trap": gjson[red1][12],
+            "trap": yOrN(gjson[red1][12]),
         }
         jzon['alliances']['red']['teams'].append(tempzon)
     for team in blueTeams:
@@ -159,7 +159,7 @@ def read_item(event: str, match_num: int):
             "onstage": yOrN(gjson[red1][11]),
             "spotlit": yOrN(gjson[red1][13]),
             "harmony": yOrN(gjson[red1][14]),
-            "trap": gjson[red1][12],
+            "trap": yOrN(gjson[red1][12]),
         }
         jzon['alliances']['blue']['teams'].append(tempzon)
     return jzon
