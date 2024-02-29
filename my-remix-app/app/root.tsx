@@ -6,14 +6,12 @@ import {
     Links
 } from "@remix-run/react";
 
-import appStylesHref from "./app.css";
 import appStylesHref1 from "./event.css";
 import appStylesHref2 from "./index.css";
 import appStylesHref3 from "./match.css";
 import appStylesHref4 from "./style.css";
 
 export const links: LinksFunction = () => [
-    { rel: "stylesheet", href: appStylesHref },
     { rel: "stylesheet", href: appStylesHref1 },
     { rel: "stylesheet", href: appStylesHref2 },
     { rel: "stylesheet", href: appStylesHref3 },
