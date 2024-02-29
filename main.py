@@ -19,6 +19,53 @@ app.add_middleware(
 def read_root():
     return {"Hello": "World"}
 
+@app.get("/sorter")
+def sorter():
+    matches = []
+    score = json.loads('{}')
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    gsheet = requests.get(
+        'https://script.google.com/macros/s/AKfycbxJJ3WN8W1hT0r3HELKaNagYv8l8YrhKAaiP3PxEP7v_VIGJcFlQtI2xl1EfowhrJdB/exec',
+        allow_redirects=True, headers=headers).content.decode('utf-8')
+    gsheet = json.loads(gsheet)
+    for x in range(len(gsheet) -1):
+        try:
+            int(gsheet[x][0])
+            if gsheet[x][0] not in matches:
+                score[gsheet[x][0]] = 1
+            else:
+                score[gsheet[x][0]] = gsheet[x][0] + 1
+
+            found = False
+            for e in range(len(matches)):
+                if gsheet[x][0]==matches[e][0]:
+                    found = True
+                    matches[e][6] = matches[e][6] + gsheet[x][6]
+                    matches[e][16] = matches[e][16] + gsheet[x][16]
+                    matches[e][15] = matches[e][15] + gsheet[x][15]
+                    matches[e][17] = matches[e][17] + gsheet[x][17]
+                    if yOrN(gsheet[x][14]) == True:
+                        matches[e][14] = matches[e][14] + 1
+                    matches[e][18] = matches[e][18] + gsheet[18]
+            if not found:
+                har = 0
+                if yOrN(gsheet[x][14]) == True:
+                    har = 1
+                matches.append([gsheet[x][0], 'test', gsheet[x][6], gsheet[x][16], gsheet[x][15], gsheet[x][17], har, gsheet[x][18]])
+        except:
+            pass
+
+    for match in range(len(matches)-1):
+        numatches = matches[match][0]
+        total = score[numatches]
+        for item in range(len(matches[match])-1):
+            if item != 1 and item != 0:
+                matches[match][item] = matches[match][item] / total
+
+    return matches
+
 @app.get("/robot/{event}/{team_num}")
 def read_item(event: str, team_num: int):
     final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [], "statBoticsMatches": {} }'
@@ -29,7 +76,9 @@ def read_item(event: str, team_num: int):
     headers = {
         'Content-Type': 'application/json'
     }
-    gsheet = requests.get(f'https://script.google.com/macros/s/AKfycbz0izILX9yb8rMEpNwkoS9Sc2XuKOUTUHS8K3eRA_ftKOHdPWYF94TGwBObZ0WO_JV6dw/exec', allow_redirects=True, headers=headers).content.decode('utf-8')
+    gsheet = requests.get(
+        'https://script.google.com/macros/s/AKfycbxJJ3WN8W1hT0r3HELKaNagYv8l8YrhKAaiP3PxEP7v_VIGJcFlQtI2xl1EfowhrJdB/exec',
+        allow_redirects=True, headers=headers).content.decode('utf-8')
     final['statBotYear'].append(json.loads(statBoticsYear.text))
     final['statBotEvent'].append(json.loads(statBoticsEvent.text))
     count = 0
@@ -74,8 +123,6 @@ def read_item(event: str, match_num: int):
                 red1 = x
                 break
         jzon['number'] = match_num
-        print(gjson[red1])
-        print(red1)
         tempzon = {
             "number": team,
             "EPA": match['red_epa_sum'],
@@ -99,8 +146,6 @@ def read_item(event: str, match_num: int):
                 red1 = d
                 break
         jzon['number'] = match_num
-        print(gjson[red1])
-        print(red1)
         tempzon = {
             "number": team,
             "EPA": match['blue_epa_sum'],
