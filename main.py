@@ -67,7 +67,7 @@ def sorter():
         total = score[f'{numatches}']
         for item in range(len(matches[match])):
             if item != 1 and item != 0:
-                matches[match][item] = matches[match][item] / total
+                matches[match][item] = round(matches[match][item] / total, 2)
 
     return matches
 
