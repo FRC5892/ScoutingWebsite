@@ -31,36 +31,41 @@ def sorter():
         allow_redirects=True, headers=headers).content.decode('utf-8')
     gsheet = json.loads(gsheet)
     for x in range(len(gsheet) -1):
+        gsheet[x][0] = str(gsheet[x][0])
         try:
             int(gsheet[x][0])
-            if gsheet[x][0] not in matches:
-                score[gsheet[x][0]] = 1
+            if f"{gsheet[x][0]}" in score:
+                score[f"{gsheet[x][0]}"] = score[f"{gsheet[x][0]}"] + 1
             else:
-                score[gsheet[x][0]] = gsheet[x][0] + 1
+                data = {
+                    f"{gsheet[x][0]}": 1
+                }
+                score.update(data)
 
             found = False
             for e in range(len(matches)):
-                if gsheet[x][0]==matches[e][0]:
+                if str(gsheet[x][0]) == str(matches[e][0]):
                     found = True
-                    matches[e][6] = matches[e][6] + gsheet[x][6]
-                    matches[e][16] = matches[e][16] + gsheet[x][16]
-                    matches[e][15] = matches[e][15] + gsheet[x][15]
-                    matches[e][17] = matches[e][17] + gsheet[x][17]
+                    matches[e][2] = matches[e][2] + gsheet[x][6]
+                    matches[e][3] = matches[e][3] + gsheet[x][16]
+                    matches[e][4] = matches[e][4] + gsheet[x][15]
+                    matches[e][5] = matches[e][5] + gsheet[x][17]
                     if yOrN(gsheet[x][14]) == True:
-                        matches[e][14] = matches[e][14] + 1
-                    matches[e][18] = matches[e][18] + gsheet[18]
+                        matches[e][6] = matches[e][6] + 1
+                    matches[e][7] = matches[e][7] + gsheet[x][18]
+                    break
             if not found:
                 har = 0
                 if yOrN(gsheet[x][14]) == True:
                     har = 1
-                matches.append([gsheet[x][0], 'test', gsheet[x][6], gsheet[x][16], gsheet[x][15], gsheet[x][17], har, gsheet[x][18]])
-        except:
-            pass
+                matches.append([f"{str(gsheet[x][0])}", 'test', gsheet[x][6], gsheet[x][16], gsheet[x][15], gsheet[x][17], har, gsheet[x][18]])
+        except Exception as E:
+            print(E)
 
-    for match in range(len(matches)-1):
+    for match in range(len(matches)):
         numatches = matches[match][0]
-        total = score[numatches]
-        for item in range(len(matches[match])-1):
+        total = score[f'{numatches}']
+        for item in range(len(matches[match])):
             if item != 1 and item != 0:
                 matches[match][item] = matches[match][item] / total
 
