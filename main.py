@@ -69,7 +69,8 @@ def sorter():
             try:
                 matches[match][item] = round(matches[match][item] / total, 2)
             except:
-                pass
+                matches.pop(match)
+                break
 
     return matches
 
