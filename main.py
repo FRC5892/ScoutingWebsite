@@ -63,14 +63,21 @@ def sorter():
             print(E)
 
     for match in range(len(matches)):
-        numatches = matches[match][0]
-        total = score[f'{numatches}']
-        for item in range(len(matches[match])):
-            try:
-                matches[match][item] = round(matches[match][item] / total, 2)
-            except:
-                matches.pop(match)
-                break
+        try:
+            numatches = matches[match][0]
+            total = score[f'{numatches}']
+            for item in range(len(matches[match])):
+                try:
+                    matches[match][item] = round(matches[match][item] / total, 2)
+                except:
+                    try:
+                        matches.pop(match)
+                        break
+                    except:
+                        pass
+        except:
+            pass
+        
 
     return matches
 
