@@ -88,7 +88,7 @@ def read_item(event: str, team_num: int):
     matches = []
     for match in robotson:
         if match['status'] == 'Completed':
-            matches.append(match['match'].replace('2024txbel_qm', ''))
+            matches.append(int(match['match'].replace('2024txbel_qm', '')))
 
     epas = json.loads(requests.get(f'https://api.statbotics.io/v2/team_event/{team_num}/{event}').text)
     finalson['epa'] = epas['epa_end']
