@@ -60,9 +60,10 @@ def sorter():
                     har = 1
                 matches.append([f"{str(gsheet[x][0])}", 'test', gsheet[x][6], gsheet[x][16], gsheet[x][15], gsheet[x][17], har, gsheet[x][18]])
         except Exception as E:
-            print(E)
+            print(f"Error at lin 63: {E}")
 
     for match in range(len(matches)):
+        print(match)
         numatches = matches[match][0]
         total = score[f'{numatches}']
         for item in range(len(matches[match])):
