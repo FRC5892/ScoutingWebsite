@@ -74,6 +74,8 @@ def sorter():
 
 @app.get("/robot/{event}/{team_num}")
 def read_item(event: str, team_num: int):
+    matchKeys = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/{event}').text)
+    print(matchKeys)
     headers = {
         'Content-Type': 'application/json'
     }
@@ -96,7 +98,7 @@ def read_item(event: str, team_num: int):
 
     for match_num in matches:
         roboBase = json.loads(open('robot.json', 'r').read())
-        matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/{event}').text)[match_num]['key']
+        matchKey = matchKeys[match_num]['key']
         match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
         redTeams = [match['red_1'], match['red_2'], match['red_3']]
         blueTeams = [match['blue_1'], match['blue_2'], match['blue_3']]
