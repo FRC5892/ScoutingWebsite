@@ -90,7 +90,7 @@ def read_item(event: str, team_num: int):
 
     epas = json.loads(requests.get(f'https://api.statbotics.io/v2/team_event/{team_num}/{event}').text)
     finalson['epa'] = epas['epa_end']
-    finalson['auton_epa'] = epas['auton_epa_end']
+    finalson['auton_epa'] = epas['auto_epa_end']
     finalson['teleop_epa'] = epas['teleop_epa_end']
     finalson['endgame_epa'] = epas['endgame_epa_end']
 
