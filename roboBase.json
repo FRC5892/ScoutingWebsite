@@ -1,0 +1,12 @@
+{
+  "number": 1,
+  "finished": true,
+  "alliances": {
+    "red": {
+        "teams": []
+    },
+    "blue": {
+        "teams": []
+    }
+  }
+}

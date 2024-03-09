@@ -1,0 +1,9 @@
+{
+  "number": 1,
+  "name": "test",
+  "epa": 1,
+  "auton_epa": 1,
+  "teleop_epa": 1,
+  "endgame_epa": 1,
+  "matches": []
+}

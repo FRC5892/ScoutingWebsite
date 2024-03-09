@@ -74,34 +74,80 @@ def sorter():
 
 @app.get("/robot/{event}/{team_num}")
 def read_item(event: str, team_num: int):
-    final = '{ "Matches": [], "statBotYear": [], "statBotEvent": [], "statBoticsMatches": {} }'
-    final = json.loads(final)
-    statBoticsYear = requests.get(f"https://api.statbotics.io/v2/team_year/{team_num}/2024")
-    statBoticsEvent = requests.get(f"https://api.statbotics.io/v2/team_event/{team_num}/{event}")
-    final['statBoticsMatches'] = requests.get(f"https://api.statbotics.io/v2/matches/team/{team_num}/event/{event}")
     headers = {
         'Content-Type': 'application/json'
     }
     gsheet = requests.get(
         'https://script.google.com/macros/s/AKfycbxJJ3WN8W1hT0r3HELKaNagYv8l8YrhKAaiP3PxEP7v_VIGJcFlQtI2xl1EfowhrJdB/exec',
         allow_redirects=True, headers=headers).content.decode('utf-8')
-    final['statBotYear'].append(json.loads(statBoticsYear.text))
-    final['statBotEvent'].append(json.loads(statBoticsEvent.text))
-    count = 0
-    gsheet = json.loads(gsheet)
-    for x in gsheet:
-        try:
-            if int(x[0]) == int(team_num):
-                temp = {
-                    "Match": random.randint(0,56),
-                    "Notes": x[20],
-                    "Charge Station": x[21],
-                    "Score": x[24]
-                }
-                final['Matches'].append(temp)
-        except Exception as E:
-            pass
-    return final
+    gjson = json.loads(gsheet)
+    finalson = json.loads(open('robot.json', 'r').read())
+    robotson = json.loads(requests.get(f'https://api.statbotics.io/v2/team_matches/team/{team_num}/event/{event}').text)
+    matches = []
+    for match in robotson:
+        if match['status'] == 'Completed':
+            matches.append(match['match'].replace('2024txbel_qm', ''))
+
+    epas = json.loads(requests.get(f'https://api.statbotics.io/v2/team_event/{team_num}/{event}').text)
+    finalson['epa'] = epas['epa_end']
+    finalson['auton_epa'] = epas['auton_epa_end']
+    finalson['teleop_epa'] = epas['teleop_epa_end']
+    finalson['endgame_epa'] = epas['endgame_epa_end']
+
+    for match_num in matches:
+        roboBase = json.loads(open('robot.json', 'r').read())
+        matchKey = json.loads(requests.get(f'https://api.statbotics.io/v2/matches/event/{event}').text)[match_num]['key']
+        match = json.loads(requests.get(f'https://api.statbotics.io/v2/match/{matchKey}').text)
+        redTeams = [match['red_1'], match['red_2'], match['red_3']]
+        blueTeams = [match['blue_1'], match['blue_2'], match['blue_3']]
+        for team in redTeams:
+            red1 = 1
+            for x in range(len(gjson)):
+                if gjson[x][0] == team and gjson[x][1] == match_num:
+                    red1 = x
+                    break
+            roboBase['number'] = match_num
+            tempzon = {
+                "number": team,
+                "EPA": match['red_epa_sum'],
+                "leftStartingZone": gjson[red1][3],
+                "auton_ampNotes": gjson[red1][4],
+                "auton_speakerNotes": gjson[red1][5],
+                "teleop_ampNotes": gjson[red1][7],
+                "teleop_speakerNotes": gjson[red1][9],
+                "teleop_ampedSpeakerNotes": gjson[red1][8],
+                "park": yOrN(gjson[red1][10]),
+                "onstage": yOrN(gjson[red1][11]),
+                "spotlit": yOrN(gjson[red1][13]),
+                "harmony": yOrN(gjson[red1][14]),
+                "trap": yOrN(gjson[red1][12]),
+            }
+            roboBase['alliances']['red']['teams'].append(tempzon)
+        for team in blueTeams:
+            red1 = 1
+            for d in range(len(gjson)):
+                if gjson[d][0] == team and gjson[d][1] == match_num:
+                    red1 = d
+                    break
+            roboBase['number'] = match_num
+            tempzon = {
+                "number": team,
+                "EPA": match['blue_epa_sum'],
+                "leftStartingZone": gjson[red1][3],
+                "auton_ampNotes": gjson[red1][4],
+                "auton_speakerNotes": gjson[red1][5],
+                "teleop_ampNotes": gjson[red1][7],
+                "teleop_speakerNotes": gjson[red1][9],
+                "teleop_ampedSpeakerNotes": gjson[red1][8],
+                "park": yOrN(gjson[red1][10]),
+                "onstage": yOrN(gjson[red1][11]),
+                "spotlit": yOrN(gjson[red1][13]),
+                "harmony": yOrN(gjson[red1][14]),
+                "trap": yOrN(gjson[red1][12]),
+            }
+            roboBase['alliances']['blue']['teams'].append(tempzon)
+        finalson['matches'].append(roboBase)
+    return finalson
 
 def yOrN(thing):
     if thing == "yes":
